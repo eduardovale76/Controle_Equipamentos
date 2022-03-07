@@ -13,9 +13,14 @@
   <body>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Controle de equipamento</a>
+          <a class="navbar-brand" href="{% url 'home' %}">Controle de equipamento</a>
+          {% block navbar %}{% endblock navbar %}
         </div>
+        <div>
+          
+        <div>
       </nav>
+      
     {% block conteudo %}{% endblock conteudo %}
 
     <!-- Optional JavaScript; choose one of the two! -->

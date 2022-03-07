@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block navbar %}
+  <a href='{% url 'sair' %}' class='btn btn-danger'>Sair</a>
+{% endblock navbar %}
+{% block conteudo %}
+<div class='container'>
+    <br>
+    <form action="#" method="POST">
+        {% csrf_token %}
+        <h1>Informações do Equipamento</h1>
+        <br>
+        <p>
+            <label>Nome do livro:</label>
+            <input style="width: 40%;" type="text" class="form-control" value="{{equipamento.nome}}">
+        </p>
+
+        <p>
+            <label>Autor:</label>
+            <input style="width: 40%;" type="text" class="form-control" value="{{equipamento.autor}}">
+        </p>
+
+        <p>
+            <label>Co-autor:</label>
+            <input style="width: 40%;" type="text" class="form-control" value="{{equipamento.co_autor}}">
+        </p>
+
+        <p>
+            <label>Data Cadastro:</label>
+            <input style="width: 40%;" type="text" class="form-control" value="{{equipamento.data_cadastro}}">
+        </p>
+        <p>
+            <label>Categoria:</label>
+            <input style="width: 40%;" type="text" class="form-control" value="{{equipamento.categoria}}">
+        </p>
+        <p>
+            <label>Categoria:</label>
+            <select style="width: 20%;" class="form-control" name="categoria">
+                {% for i in categoria_equipamento %}
+                    {% if equipamento.categoria.nome == i.nome %}
+                        <option selected>{{i}}</option>
+                        {% else %}
+                            <option>{{i}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </p>
+
+
+        <label>Emprestado:&nbsp;&nbsp;</label>
+        
+        {% if equipamento.emprestado%}
+        <input style="transform: scale(1.5);" checked type="checkbox" name="Emprestado">
+        {% else %}                  
+            <input style="transform: scale(1.5);" type="checkbox" name="Emprestado">            
+        {% endif %}                   
+        <br>
+        <br>
+        <a href="#" class="btn btn-success">Salvar</a>
+    </form>        
+    <hr>   
+    <h1>Histórico de emprestímos</h1>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Data Empréstimo</th>
+            <th scope="col">Data Devolução</th>
+            <th scope="col">Tempo Duração</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in emprestimos %}
+                <tr>
+                    {% if i.nome_emprestado_anonimo == None %}
+                        <th scope="row">{{i.nome_emprestado}}</th>
+                    {% else %}
+                        <td>{{i.nome_emprestado_anonimo}}</td>
+                    {% endif %}
+                    <td>{{i.data_emprestimo}}</td>
+                    <td>{{i.data_devolucao}}</td>
+                    <td>#######</td>
+                </tr>
+            {% endfor %}    
+        </tbody>
+      </table>
+<div>
+
+
+{% endblock conteudo %}
+
