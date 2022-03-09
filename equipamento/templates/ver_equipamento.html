@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
-{% block navbar %}
-  <a href='{% url 'sair' %}' class='btn btn-danger'>Sair</a>
-{% endblock navbar %}
+{% load filtros  %}
+
 {% block conteudo %}
 <div class='container'>
     <br>
@@ -78,7 +77,7 @@
                     {% endif %}
                     <td>{{i.data_emprestimo}}</td>
                     <td>{{i.data_devolucao}}</td>
-                    <td>#######</td>
+                    <td>{{i.data_devolucao|mostra_duracao:i.data_emprestimo}} Dias</td>
                 </tr>
             {% endfor %}    
         </tbody>
