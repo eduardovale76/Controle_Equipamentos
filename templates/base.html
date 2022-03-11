@@ -16,50 +16,55 @@
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="{% url 'home' %}">Controle de equipamento</a>
-        {% if usuario_logado %}
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-          Cadastrar Livros
-        </button>
-          <a href='{% url 'sair' %}' class='btn btn-danger'>Sair</a>
-
-        {% endif %}
-        </div>
-        <div>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown link
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          {% if usuario_logado %}
           
-        <div>
-      </nav>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+              Cadastrar Livros
+            </button>
+            <a href='{% url 'sair' %}' class='btn btn-danger'>Sair</a>
+
+          {% endif %}
+        </div>
+    </nav>
       
     {% block conteudo %}{% endblock conteudo %}
   
-  {% if usuario_logado %}
-    <!-- The Modal -->
-    <div class="modal" id="myModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
+    {% if usuario_logado %}
+  
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
 
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Cadastrar Livro</h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Cadastrar Livro</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                <form action="{% url 'cadastrar_equipamento' %}" method="POST">{% csrf_token %}
+                  <table>
+                    {{form.as_table}}
+                  </table>
+                  <input type="submit" class="btn btn-success" value="Cadastrar">
+                </form>
+                
+              </div>
+            </div>
           </div>
-
-          <!-- Modal body -->
-          <div class="modal-body">
-            <form action="{% url 'cadastrar_equipamento' %}" method="POST">{% csrf_token %}
-              <table>
-                {{form.as_table}}
-              </table>
-              <input type="submit" class="btn btn-success" value="Cadastrar">
-            </form>
-            
-          </div>
-
-
-
         </div>
-      </div>
-    </div>
-
-  {% endif %}
+    {% endif %}
   </body>
 </html>
