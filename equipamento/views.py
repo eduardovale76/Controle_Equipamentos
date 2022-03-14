@@ -1,11 +1,9 @@
-from django import http
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.urls import is_valid_path
-import equipamento
 from usuarios.views import Usuario
 from .models import Categoria, Emprestimos, Equipamentos, Usuario
-from .forms import CadastroEquipamento
+from .forms import CadastroCategoria, CadastroEquipamento
+
 
 def home(request):
     if request.session.get('usuario'):
@@ -19,7 +17,7 @@ def home(request):
                                              'form':form})
     else:
         return redirect('/auth/login/?status=2')
-
+    
 def ver_equipamento(request, id):
     if request.session.get('usuario'):
         equipamento = Equipamentos.objects.get(id = id)
@@ -51,7 +49,20 @@ def cadastrar_equipamento(request):
             form = CadastroEquipamento()
             return HttpResponse("Dados inválidos")
         
+        
 
 def excluir_equipamento(request, id):
     Equipamentos.objects.get(id = id).delete()
     return redirect('/equipamento/home/')
+
+def cadastrar_categoria(request):
+    if request.method == 'POST':
+            form = CadastroCategoria(request.POST)
+            if form.is_valid():
+                form_completo = form.save(commit=False)
+                form_completo.usuario = Usuario.objects.get(id = request.session.get('usuario'))
+                form_completo.save()
+    else:
+        form = CadastroCategoria()
+                
+    return render(request,'categoria.html',{'form':form})

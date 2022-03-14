@@ -1,0 +1,18 @@
+
+.content {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.nav-link, .nav-link:hover{
+    position: right;
+    color: #ffffff57;
+}
+
+.nav-link:hover{
+    position: right;
+    color: #ffffff7e;
+}
