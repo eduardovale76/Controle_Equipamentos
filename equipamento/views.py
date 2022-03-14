@@ -1,11 +1,10 @@
-from django import http
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.urls import is_valid_path
-import equipamento
 from usuarios.views import Usuario
 from .models import Categoria, Emprestimos, Equipamentos, Usuario
-from .forms import CadastroEquipamento
+from .forms import CadastroCategoria, CadastroEquipamento
+
 
 def home(request):
     if request.session.get('usuario'):
@@ -33,7 +32,7 @@ def ver_equipamento(request, id):
                                                             'categoria_equipamento':categoria_equipamento, 
                                                             'emprestimos': emprestimos, 
                                                             'usuario_logado': request.session.get('usuario'), 
-                                                            'id_equipamento': id})
+                                                            'id_equipamento': id,'form':form})
         else:
             return redirect('/equipamento/home/')
     return redirect('/auth/login/?status=2')
@@ -55,3 +54,10 @@ def cadastrar_equipamento(request):
 def excluir_equipamento(request, id):
     Equipamentos.objects.get(id = id).delete()
     return redirect('/equipamento/home/')
+    
+
+def cadastrar_categoria(request):
+
+    form = CadastroCategoria()
+    usuario = Usuario.objects.get(id = request.session['usuario'])
+    return render(request,'categoria.html',{'form':form, 'usuario':usuario})

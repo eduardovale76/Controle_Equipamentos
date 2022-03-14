@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block titulo %}Login{% endblock titulo %}
+
+{% block conteudo %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+        
+        </div>
+        <div class="col-md">
+            <h1>Sair</h1>
+            <hr>
+            <p>Você tem certeza que deseja sair?</p>
+            <form method="post" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                <button class="btn btn-danger" type="submit">Sair</button>
+                <a href="{% url 'home' %}" class="btn btn-warning" type="submit">Cancelar</a>
+            </form>
+        </div>
+        <div class="col-md-3">
+            
+        </div>
+
+    </div>
+ 
+</div>
+{% endblock conteudo %}

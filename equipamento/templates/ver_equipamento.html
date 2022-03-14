@@ -25,7 +25,31 @@
       </div>
     </div>
   </div>
+ <!-- The Modal -->
+ <div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Cadastrar Livro</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form action="{% url 'cadastrar_categoria' %}" method="POST">{% csrf_token %}
+          teste
+          <table>
+            {{form.as_table}}
+          </table>
+          <input type="submit" class="btn btn-success" value="Cadastrar">
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
 <div class='container'>
     <br>
     <form action="#" method="POST">

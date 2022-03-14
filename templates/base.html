@@ -26,13 +26,22 @@
               <a class="dropdown-item" href="#">Something else here</a>
             </div>
           </li>
-          {% if usuario_logado %}
-          
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'account_logout' %}">Sair</a>
+          </li>
+          <a class="navbar-brand" href="{% url 'cadastrar_categoria' %}">categoria</a> 
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
               Cadastrar Livros
             </button>
-            <a href='{% url 'sair' %}' class='btn btn-danger'>Sair</a>
-
+            <a href="{% url 'account_logout' %}" class='btn btn-danger'>Sair</a>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'account_login' %}">Entrar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'account_signup' %}">Cadastro</a>
+            </li>
           {% endif %}
         </div>
     </nav>
