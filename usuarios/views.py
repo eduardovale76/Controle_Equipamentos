@@ -1,21 +1,20 @@
 
 from django.shortcuts import render
-from django.http import HttpResponse
 from .models import Usuario
 from django.shortcuts import redirect
 from hashlib import sha256
 
-def login(request):
-    if request.session.get('usuario'):
-        return redirect('/equipamento/home/')
-    status = request.GET.get('status')
-    return render(request, 'login.html', {'status': status})
+#def login(request):
+ ##   if request.user:
+  #      return redirect('/equipamento/home/')
+ #   status = request.GET.get('status')
+ #   return render(request, 'login.html', {'status': status})
 
 def cadastro(request):
-    if request.session.get('usuario'):
+    if request.user:
         return redirect('/equipamento/home/')
-    status = request.GET.get('status')
-    return render(request, 'cadastro.html', {'status':status})
+    #status = request.GET.get('status')
+    return render(request, 'cadastro.html')
 
 def valida_cadastro(request):
     nome = request.POST.get('nome')
@@ -47,20 +46,19 @@ def valida_cadastro(request):
         return redirect('/auth/cadastro/?status=4')
     
 
-def valida_login(request):
-    email = request.POST.get('email')
-    senha = request.POST.get('senha')
-    senha = sha256(senha.encode()).hexdigest()
+#def valida_login(request):
+ #   email = request.POST.get('email')
+ #   senha = request.POST.get('senha')
+  #  senha = sha256(senha.encode()).hexdigest()
     
     # Validando usuario usando session
-    usuario = Usuario.objects.filter(email = email).filter(senha = senha)
+ #   usuario = Usuario.objects.filter(email = email).filter(senha = senha)
     
-    if len(usuario) == 0:
-        return redirect('/auth/login/?status=1')
-    elif len(usuario) > 0:
-        request.session['usuario'] = usuario[0].id
-        return redirect('/equipamento/home')
+ #   if len(usuario) == 0:
+ #       return redirect('/auth/login/?status=1')
+ #   elif len(usuario) > 0:
+ #       request.session['usuario'] = usuario[0].id
+ #       return redirect('/equipamento/home')
 
-def sair(request):
-    request.session.flush()
-    return redirect('/auth/login')
+#def sair(request):
+ ##  return redirect('/auth/login')

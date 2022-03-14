@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
 
 
-class HomePageView(TemplateView):
-    template_name = "login.html"
+class LoginView(TemplateView):
+    template_name = "account/login.html"
