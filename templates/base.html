@@ -19,48 +19,26 @@
       <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="{% url 'home' %}">Controle de equipamento</a>
-          <div style='text_white'>usuario logado: {{usuario_logado}} </div>
-          {% if usuario_logado %}
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Cadastros
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="{% url 'cadastrar_categoria'%}">Categoria</a>
-                  <a class="dropdown-item" <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-                    Livros
-                  </button>
-                  <a class="dropdown-item" href="#">Emprestimo</a>
-                  <hr class="dropdown-divider">
-              </div>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Controle
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">O.S. de Validadores (Baixa)</a>
-                  <hr class="dropdown-divider">
-                  <a class="dropdown-item" href="#">Consultas</a>
-                  <hr class="dropdown-divider">
-              </div>
-            </li>
-            <a href='{% url 'sair' %}' class='btn btn-danger'>Sair</a>
+          {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'account_logout' %}">Sair</a>
+              </li>
+              <a class="navbar-brand" href="{% url 'cadastrar_categoria' %}">categoria</a> 
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                  Cadastrar Livros
+                </button>
+            <a href="{% url 'account_logout' %}" class='btn btn-danger'>Sair</a>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'account_login' %}">Entrar</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="{% url 'account_signup' %}">Cadastro</a>
-          </li>
+                <a class="nav-link" href="{% url 'account_login' %}">Entrar</a>
+            </li>
           {% endif %}
         </div>
       </nav>
       
     {% block conteudo %}{% endblock conteudo %}
   
-    {% if usuario_logado %}
+    {% if user.is_authenticated %}
   
         <!-- The Modal  Equipamento -->
         <div class="modal" id="myModal">
