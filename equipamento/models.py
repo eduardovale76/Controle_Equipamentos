@@ -1,12 +1,12 @@
 from datetime import date
 from django.db import models
-from usuarios.models import Usuario
+from django.contrib.auth.models import User
 
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=30)
     descricao = models.TextField()
-    usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
+    usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     
     
     def __str__(self) -> str:
@@ -18,7 +18,7 @@ class Equipamentos(models.Model):
     co_autor = models.CharField(max_length=30)
     data_cadastro = models.DateField(default= date.today)
     categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)
-    usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
+    usuario = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     emprestado = models.BooleanField(default=False)
     
     class Meta:
@@ -28,7 +28,7 @@ class Equipamentos(models.Model):
         return self.nome
 
 class Emprestimos(models.Model):
-    nome_emprestado = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING, blank=True, null=True)
+    nome_emprestado = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True)
     nome_emprestado_anonimo = models.CharField(max_length=30, blank=True, null=True)
     data_emprestimo = models.DateField(blank=True, null=True)
     data_devolucao = models.DateField(blank=True, null=True)

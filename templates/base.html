@@ -19,14 +19,13 @@
       <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="{% url 'home' %}">Controle de equipamento</a>
+
           {% if user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'account_logout' %}">Sair</a>
-              </li>
               <a class="navbar-brand" href="{% url 'cadastrar_categoria' %}">categoria</a> 
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-                  Cadastrar Livros
+                  Cadastrar Equipamentos
                 </button>
+
             <a href="{% url 'account_logout' %}" class='btn btn-danger'>Sair</a>
             {% else %}
             <li class="nav-item">
@@ -47,13 +46,13 @@
 
               <!-- Modal Header -->
               <div class="modal-header">
-                <h4 class="modal-title">Cadastrar Livro</h4>
+                <h4 class="modal-title">Cadastrar Equipamentos</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
               </div>
 
               <!-- Modal body -->
               <div class="modal-body">
-                <form action="{% url 'cadastrar_equipamento' %}" method="POST">{% csrf_token %}
+                <form action="{% url 'cadastrar_categoria' %}" method="POST">{% csrf_token %}
                   <table>
                     {{form.as_table}}
                   </table>
