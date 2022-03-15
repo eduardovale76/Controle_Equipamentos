@@ -13,7 +13,7 @@
             <h1>Cadastrar Categoria</h1>
             <hr>
 
-            <form action='' href="{% url 'cadastrar_categoria' %}" method="POST">{% csrf_token %}
+            <form action='.'method="POST">{% csrf_token %}
                 {{form|crispy}}
             </form>
             <input type="submit" value="Submit">

@@ -58,5 +58,6 @@ def excluir_equipamento(request, id):
     return redirect('/equipamento/home/')
     
 
-class CadastrarCategoria(TemplateView):
-    template_name = 'categoria.html'
+def cadastrar_categoria(request):
+    form = CadastroCategoria()
+    return render(request, 'categoria.html', {'form':form})
