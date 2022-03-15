@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -24,6 +25,9 @@
               <a class="navbar-brand" href="{% url 'cadastrar_categoria' %}">categoria</a> 
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
                   Cadastrar Equipamentos
+                </button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal3">
+                  Cadastrar rsrsre
                 </button>
 
             <a href="{% url 'account_logout' %}" class='btn btn-danger'>Sair</a>
@@ -52,8 +56,8 @@
 
               <!-- Modal body -->
               <div class="modal-body">
-                <form action="{% url 'cadastrar_categoria' %}" method="POST">{% csrf_token %}
-                  <table>
+                <form action="#" href="{% url 'cadastrar_categoria' %}"method="POST">{% csrf_token %}
+                  <table>tstest
                     {{form.as_table}}
                   </table>
                   <input type="submit" class="btn btn-success" value="Cadastrar">
@@ -64,7 +68,31 @@
           </div>
         </div>
         <!-- End Equipamento-->
-               
+       <!-- The Modal  Equipamento -->
+       <div class="modal" id="myModal3">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Cadastrar testestestsetsetsetse</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              <form action='' href="{% url 'cadastrar_categoria' %}" method="POST">{% csrf_token %}
+                <table>
+                  {{form|crispy}}
+                </table>
+                <input type="submit" class="btn btn-success" value="Cadastrar">
+              </form>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Equipamento-->        
     {% endif %}
   </body>
 </html>

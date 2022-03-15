@@ -1,10 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-#from usuarios.views import Usuario
 from django.contrib.auth.models import User
 from .models import Categoria, Emprestimos, Equipamentos
 from .forms import CadastroCategoria, CadastroEquipamento
 from django.contrib.auth import get_user_model
+from django.views.generic import TemplateView
 
 
 def home(request):
@@ -58,15 +58,5 @@ def excluir_equipamento(request, id):
     return redirect('/equipamento/home/')
     
 
-def cadastrar_categoria(request):
-    if request.method == 'POST':
-        form = CadastroCategoria(request.POST)
-        if form.is_valid():
-            form_completo = form.save(commit=False)
-            form_completo.usuario = get_user_model()
-            form_completo.save()
-            return redirect('/equipamento/home/')
-        else:
-            form = CadastroCategoria()
-            return HttpResponse("Dados inválidos")
-
+class CadastrarCategoria(TemplateView):
+    template_name = 'categoria.html'
