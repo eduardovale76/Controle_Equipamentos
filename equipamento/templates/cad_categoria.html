@@ -11,13 +11,14 @@
         </div>
         <div class="col-md">
             <br>
-            <h1>Cadastrar</h1>
+            <h2>Cadastrar Categoria</h2>
             <hr>
 
-            <form action='' href="{% url 'cadastrar_categoria' %}" method="POST">{% csrf_token %}
+            <form action='' method="POST">{% csrf_token %}
                 <table>
                   {{form|crispy}}
                 </table>
+                <br>
                 <input type="submit" class="btn btn-success" value="Cadastrar">
             </form>
             

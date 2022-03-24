@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load filtros  %}
+{% load static  %}
+   
+{% block conteudo %} 
+<div class='container'>
+    <br>
+    <h1 class=''>Histórico de empréstimos</h1>
+    <hr>
+    <br>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Equipamento</th>
+            <th scope="col">Empresa</th>
+            <th scope="col">Data Empréstimo</th>
+            <th scope="col">Data Devolução</th>
+            <th scope="col">Tempo Duração</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in emprestimos %}
+                <tr>
+                    <td>{{i.equipamentos}}</td>
+                    {% if i.nome_empresa_anonima == None %}
+                        <td scope="row">{{i.empresa_responsavel}}</td>
+                    {% else %}
+                        <td>{{i.nome_empresa_anonima}}</td>
+                    {% endif %}
+                    <td>{{i.data_emprestimo}}</td>
+                    <td>{{i.data_devolucao}}</td>
+                    <td>{{i.data_devolucao|mostra_duracao:i.data_emprestimo}}</td>
+                </tr>
+            {% endfor %}    
+        </tbody>
+      </table>
+<div>
+
+
+{% endblock conteudo %}
+

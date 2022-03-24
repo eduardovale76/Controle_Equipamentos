@@ -7,12 +7,21 @@
     transform: translate(-50%, -50%);
 }
 
-.nav-link, .nav-link:hover{
+.nav-link, .nav-link:hover, .body{
     position: right;
     color: #ffffff57;
 }
 
 .nav-link:hover{
     position: right;
-    color: #ffffff7e;
+    color: #0303037e;
+}
+
+.main-footer{
+    background: #ffab62;
+    width: 100%;
+    height: 100px;
+    position: sticky;
+    bottom: 0;
+    left: 0;
 }

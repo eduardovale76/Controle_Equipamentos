@@ -11,15 +11,10 @@
         </div>
         <div class="col-md">
             <br>
-            <h1>Entrar</h1>
             <hr>
-
-            <form method="post">{% csrf_token %}
-                {{form|crispy }}
-                <br>
-            <button class="btn btn-success" type="submit">Entrar</button>
-            </form>
-            
+            <h1 class="text-center">Favor realizar o Login!</h1>
+            <a class="nav-link text-black text-center" href="{% url 'account_login' %}">Entrar</a>
+            <hr>
         </div>
         <div class="col-md-3">
             
