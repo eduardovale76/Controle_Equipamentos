@@ -11,12 +11,19 @@ class Categoria(models.Model):
     def __str__(self) -> str:
         return self.nome
     
+class Empresa(models.Model):
+    nome = models.CharField(max_length=60)
+    responsavel = models.CharField(max_length=60)
+    email = models.EmailField(max_length=60, blank=True, null=True)
+    
+    def __str__(self) -> str:
+        return self.nome    
     
 class Equipamentos(models.Model):
     nome = models.CharField(max_length=60)
     imagem = models.ImageField(upload_to='foto_equipamento', null=True, blank=True)
     serial = models.CharField(max_length=30)
-    empresa = models.CharField(max_length=30)
+    empresa = models.ForeignKey(Empresa, on_delete=models.DO_NOTHING)
     data_cadastro = models.DateField(default= date.today)
     categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)
     #usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
@@ -27,12 +34,7 @@ class Equipamentos(models.Model):
         
     def __str__(self):
         return self.nome
-class Empresa(models.Model):
-    nome = models.CharField(max_length=60)
-    responsavel = models.CharField(max_length=60)
-    
-    def __str__(self) -> str:
-        return self.nome
+
     
 class Emprestimos(models.Model):
     empresa_responsavel = models.ForeignKey(Empresa, on_delete=models.DO_NOTHING)
