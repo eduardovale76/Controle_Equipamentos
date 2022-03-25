@@ -4,7 +4,7 @@ from .models import Categoria, Empresa, Emprestimos, Equipamentos
 from .forms import CadastroCategoria, CadastroEquipamento, CadastroEmprestimo, CadastroUser, CadastroEmpresa
 from django.contrib.auth.decorators import login_required
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def home(request):
     equipamentos = Equipamentos.objects.all()
     form = CadastroEquipamento()
@@ -12,7 +12,7 @@ def home(request):
     return render(request, 'ver_equipamento_lista.html', {'equipamentos':equipamentos, 'form':form})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def ver_equipamento(request, id):
     if request.user:
         equipamento = Equipamentos.objects.get(id = id)
@@ -28,7 +28,7 @@ def ver_equipamento(request, id):
         return redirect('/equipamento/home/')
 
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def cadastrar_equipamento(request):
     if request.method == "POST":
         form = CadastroEquipamento(request.POST, request.FILES)
@@ -40,13 +40,13 @@ def cadastrar_equipamento(request):
         form = CadastroEquipamento()
     return render(request, 'cad_equipamento.html', {'form':form})
              
-@login_required(login_url='/accounts/login/')
+@login_required
 def excluir_equipamento(request, id):
     Equipamentos.objects.get(id = id).delete()
     return redirect('/equipamento/home/')
 
     
-@login_required(login_url='/accounts/login/')
+@login_required
 def cadastrar_categoria(request):
     if request.method == "POST":
         form = CadastroCategoria(request.POST)
@@ -59,7 +59,7 @@ def cadastrar_categoria(request):
     return render(request, 'cad_categoria.html', {'form':form})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def cadastrar_emprestimo(request):
     if request.method =="POST":
         form = CadastroEmprestimo(request.POST)
@@ -72,7 +72,7 @@ def cadastrar_emprestimo(request):
     return render(request, 'cad_emprestimo.html', {'form':form})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def cadastrar_usuario(request):
     if request.method =="POST":
         form = CadastroUser(request.POST)
@@ -85,31 +85,31 @@ def cadastrar_usuario(request):
     return render(request, 'cad_usuario.html', {'form':form})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def historico_equipamento(request):
     emprestimos = Emprestimos.objects.all()
     return render(request, 'historico_equipamento.html', {'emprestimos': emprestimos})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def listagem_empresa(request):
     empresas = Empresa.objects.all()
     return render(request, 'listagem_empresa.html', {'empresas':empresas})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def listagem_categoria(request):
     categorias = Categoria.objects.all()
     return render(request, 'listagem_categoria.html', {'categorias':categorias})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def listagem_equipamento(request):
     equipamentos = Equipamentos.objects.all()
     return render(request, 'listagem_equipamento.html', {'equipamentos':equipamentos})
         
         
-@login_required(login_url='/accounts/login/')        
+@login_required       
 def editar_equipamento(request):
     equipamento_id = request.POST.get('equipamento_id')
     categoria_id = request.POST.get('categoria_id')
@@ -127,7 +127,7 @@ def editar_equipamento(request):
     return redirect(f'/equipamento/ver_equipamento/{equipamento_id}')
 
 
-@login_required(login_url='/accounts/login/')
+@login_required
 def cadastrar_empresa(request):
     if request.method =='POST':
         form = CadastroEmpresa(request.POST)
