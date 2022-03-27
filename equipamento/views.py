@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Categoria, Empresa, Emprestimos, Equipamentos
 from .forms import CadastroCategoria, CadastroEquipamento, CadastroEmprestimo, CadastroUser, CadastroEmpresa
@@ -34,6 +33,8 @@ def cadastrar_equipamento(request):
         form = CadastroEquipamento(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
+            if not post.imagem:
+                post.imagem = 'foto_equipamento/semimg.jpg'
             post.save()
             return redirect('/equipamento/home/')
     else:

@@ -25,3 +25,9 @@
     bottom: 0;
     left: 0;
 }
+
+.navbar2 {
+    position:fixed;
+    top: 100px;
+    right: 50px;
+}
