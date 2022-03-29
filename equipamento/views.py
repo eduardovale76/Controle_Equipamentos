@@ -26,6 +26,17 @@ def ver_equipamento(request, id):
     else:
         return redirect('/equipamento/home/')
 
+@login_required
+def ver_empresa(request, id):
+    empresa = Empresa.objects.get(id = id)
+    form = CadastroEmpresa()
+    return render(request, 'ver_empresa.html', {'empresa_id':id, 'empresa':empresa, 'form': form})
+
+@login_required
+def ver_categoria(request, id):
+    categoria = Categoria.objects.get(id = id)
+    form = CadastroCategoria()
+    return render(request, 'ver_categoria.html', {'id_categoria': id, 'categoria': categoria, 'form':form})
 
 @login_required
 def cadastrar_equipamento(request):
@@ -46,6 +57,17 @@ def excluir_equipamento(request, id):
     Equipamentos.objects.get(id = id).delete()
     return redirect('/equipamento/home/')
 
+
+@login_required
+def excluir_categoria(request, id):
+    Categoria.objects.get(id = id).delete()
+    return redirect('/equipamento/listagem_categoria')
+
+@login_required
+def excluir_empresa(request, id):
+    Empresa.objects.get(id = id).delete()
+    return redirect('/equipamento/listagem_empresa')
+
     
 @login_required
 def cadastrar_categoria(request):
@@ -54,7 +76,7 @@ def cadastrar_categoria(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
-            return redirect('/equipamento/home/')
+            return redirect('/equipamento/listagem_categoria')
     else:
         form = CadastroCategoria()
     return render(request, 'cad_categoria.html', {'form':form})
@@ -109,6 +131,17 @@ def listagem_equipamento(request):
     equipamentos = Equipamentos.objects.all()
     return render(request, 'listagem_equipamento.html', {'equipamentos':equipamentos})
         
+@login_required
+def editar_categoria(request):
+    id_categoria = request.POST.get('categoria_id')
+    nome = request.POST.get('nome')
+    descricao = request.POST.get('descricao')
+    categoria = Categoria.objects.get(id = id_categoria)
+    categoria.nome = nome
+    categoria.descricao = descricao
+    categoria.save()
+    return redirect('/equipamento/listagem_categoria')
+    
         
 @login_required       
 def editar_equipamento(request):
@@ -127,6 +160,19 @@ def editar_equipamento(request):
     equipamento.save()
     return redirect(f'/equipamento/ver_equipamento/{equipamento_id}')
 
+@login_required
+def editar_empresa(request):
+    empresa_id = request.POST.get('empresa_id')
+    empresa_nome = request.POST.get('nome')
+    empresa_responsavel = request.POST.get('responsavel')
+    empresa_email = request.POST.get('email')
+    empresa = Empresa.objects.get(id = empresa_id)
+    empresa.nome = empresa_nome
+    empresa.responsavel = empresa_responsavel
+    empresa.email = empresa_email
+    empresa.save()
+    return redirect('/equipamento/listagem_empresa')
+
 
 @login_required
 def cadastrar_empresa(request):
@@ -135,7 +181,7 @@ def cadastrar_empresa(request):
         if form.is_valid:
             post = form.save(commit=False)
             post.save()
-            return redirect('/equipamento/home/')
+            return redirect('/equipamento/listagem_empresa')
     else:
         form = CadastroEmpresa()
     return render(request, 'cad_empresa.html', {'form':form})

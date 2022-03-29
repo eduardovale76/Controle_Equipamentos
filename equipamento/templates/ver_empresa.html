@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static  %}
+   
+{% block conteudo %}
+  <!-- The Modal excluir -->
+  <div class="modal" id="myModal2">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Deseja realmente Excluir?</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <a href="{% url 'excluir_empresa' empresa_id %}" class="btn btn-danger">Excluir</a> 
+        </div>
+      </div>
+    </div>
+  </div>
+ <!-- The Modal -->
+
+<div class='container'>
+    <br>
+    <h1>Informações do Equipamento</h1>
+    <hr>
+           
+    <br>
+    <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+                <br>
+                <form action="{% url 'editar_empresa' %}" method="POST">
+                    {% csrf_token %}
+               
+                    <p>
+                        <input type="hidden" value="{{ empresa.id }}" name="empresa_id">
+                        <label>Empresa:</label>
+                        <input style="width: 40%;" name="nome" type="text" class="form-control" value="{{empresa.nome}}">
+                    </p>
+            
+                    <p>
+                        <label>Responsável::</label>
+                        <input style="width: 40%;" type="text" name="responsavel" class="form-control" value="{{empresa.responsavel}}">
+                    </p>
+            
+                    <p>
+                        <label>Email:</label>
+                        <input style="width: 40%;" type="text" name="email" class="form-control" value="{{empresa.email}}">
+                    </p>                  
+                    <br>
+                    <br>
+                    <input type="submit" class="btn btn-success" value="Salvar"> 
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal2">
+                        Excluir
+                    </button>
+                </form>  
+            </div>
+          </div>
+        </div>
+        
+      </table>
+<div>
+
+
+{% endblock conteudo %}
+
