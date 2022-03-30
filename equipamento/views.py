@@ -38,6 +38,7 @@ def ver_categoria(request, id):
     form = CadastroCategoria()
     return render(request, 'ver_categoria.html', {'id_categoria': id, 'categoria': categoria, 'form':form})
 
+
 @login_required
 def cadastrar_equipamento(request):
     if request.method == "POST":
@@ -123,6 +124,9 @@ def listagem_empresa(request):
 @login_required
 def listagem_categoria(request):
     categorias = Categoria.objects.all()
+    busca = request.GET.get('search')
+    if busca:
+        categorias = Categoria.objects.filter(nome__icontains=busca)
     return render(request, 'listagem_categoria.html', {'categorias':categorias})
 
 
