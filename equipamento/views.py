@@ -1,3 +1,4 @@
+from re import search
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Categoria, Empresa, Emprestimos, Equipamentos
 from .forms import CadastroCategoria, CadastroEquipamento, CadastroEmprestimo, CadastroUser, CadastroEmpresa
@@ -118,22 +119,29 @@ def historico_equipamento(request):
 @login_required
 def listagem_empresa(request):
     empresas = Empresa.objects.all()
-    return render(request, 'listagem_empresa.html', {'empresas':empresas})
+    search_input = request.GET.get('search_area') or ''
+    if search_input:
+        empresas = Empresa.objects.filter(nome__icontains=search_input)
+    return render(request, 'listagem_empresa.html', {'empresas':empresas, 'search_input':search_input})
 
 
 @login_required
 def listagem_categoria(request):
     categorias = Categoria.objects.all()
-    busca = request.GET.get('search')
-    if busca:
-        categorias = Categoria.objects.filter(nome__icontains=busca)
-    return render(request, 'listagem_categoria.html', {'categorias':categorias})
+    search_input = request.GET.get('search_area') or ''
+    if search_input:
+        categorias = Categoria.objects.filter(nome__icontains=search_input)
+    return render(request, 'listagem_categoria.html', {'categorias':categorias, 'search_input':search_input})
+
 
 
 @login_required
 def listagem_equipamento(request):
     equipamentos = Equipamentos.objects.all()
-    return render(request, 'listagem_equipamento.html', {'equipamentos':equipamentos})
+    search_input = request.GET.get('search_area') or ''
+    if search_input:
+        equipamentos = Equipamentos.objects.filter(nome__icontains=search_input)
+    return render(request, 'listagem_equipamento.html', {'equipamentos':equipamentos, 'search_input':search_input})
         
 @login_required
 def editar_categoria(request):

@@ -9,11 +9,9 @@
     <hr>
     <br>
     <div class="col-lg-4">
-      <form class="input-group" action="." method="get">
-        <input type="text" name="search" id="search" class="form-control" placeholder="Pesquise a categoria">
-        <span class="input-group-btn">
-          <a class="btn btn-primary" href="{% url 'listagem_categoria' %}" type="submit">Pesquisar</a>
-        </span>
+      <form class="input-group" method="get">
+        <input type="text" name="search_area" value="{{search_input}}"placeholder="Pesquise a categoria">
+        <input class="btn btn-primary" type="submit" value="Buscar">
       </form>
     </div>
     <br>
