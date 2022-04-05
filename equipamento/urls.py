@@ -24,4 +24,6 @@ urlpatterns = [
     path('listagem_empresa', views.listagem_empresa, name='listagem_empresa'),
     path('listagem_categoria', views.listagem_categoria, name='listagem_categoria'),
     path('listagem_equipamento', views.listagem_equipamento, name='listagem_equipamento'),
+    #devolução
+    path('ver_equipamento', views.devolver_equipamento, name='devolver_equipamento'),
 ]

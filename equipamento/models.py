@@ -50,5 +50,6 @@ class Emprestimos(models.Model):
     
     
     def __str__(self):
-        return f'{self.nome_emprestado} | {self.equipamentos}'
+       # return f'{self.nome_emprestado} | {self.equipamentos}'
+       return f'{self.equipamentos}'
     

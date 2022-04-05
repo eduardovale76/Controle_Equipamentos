@@ -30,9 +30,23 @@
            
     <br>
     <div class="row">
-        <div class="col-sm-6">
+      <div class="col-sm-2">
+        <div class="card">
+          <div class="card-body">
+            <h4>Imagem</h4>
+            <hr>
+
+              <label></label><br>
+              <img max-width:"200px" max-height:"150px" width:"auto" height:"auto" class="img-thumbnail rounded-start" src="{{ equipamento.imagem.url }}">
+              <br>
+          </div>
+        </div>
+      </div>
+        <div class="col-sm-4">
           <div class="card">
             <div class="card-body">
+              <h4>Informações</h4>
+              <hr>
                 <br>
                 <form action="{% url 'editar_equipamento' %}" method="POST">
                     {% csrf_token %}
@@ -40,17 +54,17 @@
                     <p>
                         <input type="hidden" value="{{ equipamento.id }}" name="equipamento_id">
                         <label>Equipamento:</label>
-                        <input style="width: 40%;" name="nome" type="text" class="form-control" value="{{equipamento.nome}}">
+                        <input style="width: 70%;" name="nome" type="text" class="form-control" value="{{equipamento.nome}}">
                     </p>
             
                     <p>
                         <label>Serial:</label>
-                        <input style="width: 40%;" type="text" name="autor" class="form-control" value="{{equipamento.serial}}">
+                        <input style="width: 70%;" type="text" name="serial" class="form-control" value="{{equipamento.serial}}">
                     </p>
             
                     <p>
                         <label>Empresa:</label>
-                        <input style="width: 40%;" type="text" name="co_autor" class="form-control" value="{{equipamento.empresa}}">
+                        <input style="width: 70%;" type="text" name="empresa" class="form-control" value="{{equipamento.empresa}}">
                     </p>
             
                     <p>
@@ -59,7 +73,7 @@
                     </p>
                     <p>
                         <label>Categoria:</label>
-                        <select style="width: 40%;" class="form-control" name="categoria_id">
+                        <select style="width: 70%;" class="form-control" name="categoria_id">
                             {% for i in categoria_equipamento %}
                                 {% if equipamento.categoria.nome == i.nome %}
                                     <option value="{{i.id}}"selected>{{i}}</option>
@@ -88,17 +102,46 @@
             </div>
           </div>
         </div>
+        
         <div class="col-sm-6">
           <div class="card">
-            <div class="card-body">
-                <br>
-                <label>Imagem:</label><br>
-                <img max-width:"200px" max-height:"150px" width:"auto" height:"auto" class="img-thumbnail rounded-start" src="{{ equipamento.imagem.url }}">
-                <br>
-            </div>
+            
+
+                {% for emprestimo in emprestimos %}
+                  <div class="card-body">
+                    <form action="{% url 'devolver_equipamento' %}" method="POST">{% csrf_token %}
+                      <input type="hidden" value="{{ equipamento.id }}" name="equipamento_id">
+                      <input type="hidden" value="{{emprestimo.pk}}" name="id">
+                        <h4>Dados Manutenção</h4>
+                        <hr>
+                      <p>
+                          <label>Defeito:</label>
+                          <input style="width: 70%;" type="text" name="defeito" class="form-control" value="{{emprestimo.defeito}}">
+                      </p>
+                      <p>
+                          <label>Diagnostico:</label>
+                          <input style="width: 70%;" type="textarea" name="diagnostico" class="form-control" value="{{emprestimo.diagnostico}}">
+                      </p>
+              
+                      <p>
+                          <label>Técnico Responsável:</label>
+                          <input style="width: 70%;" type="text" name="tecnico_responsavel" class="form-control" value="{{emprestimo.tecnico_responsavel}}">
+                      </p>
+                      <p>
+                        <label>Data Devolução:</label>
+                        <input style="width: 40%;" type="date" name="data_devolucao" class="form-control" value="{{emprestimo.data_devolucao}}">
+                      </p>
+                      <p>
+                {% endfor %}
+                  </p>               
+                  <br>
+                  <br>
+                  <input type="submit" class="btn btn-warning" value="Devolver"> 
+                  </div>
+              </form> 
           </div>
         </div>
-      </div>      
+      </div>  
     
     <hr>   
     <h1>Histórico de emprestimos</h1>

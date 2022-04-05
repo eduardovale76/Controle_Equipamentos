@@ -157,20 +157,21 @@ def editar_categoria(request):
         
 @login_required       
 def editar_equipamento(request):
+    #from post
     equipamento_id = request.POST.get('equipamento_id')
     categoria_id = request.POST.get('categoria_id')
     nome = request.POST.get('nome')
-    autor = request.POST.get('autor')
-    co_autor = request.POST.get('co_autor')
+    serial = request.POST.get('serial')
+    #from table Equipamentos
     equipamento = Equipamentos.objects.get(id = equipamento_id)
     categoria = Categoria.objects.get(id=categoria_id)
     equipamento.categoria = categoria
     equipamento.nome = nome
-    equipamento.autor = autor
-    equipamento.co_autor = co_autor
-    
+    equipamento.serial = serial
     equipamento.save()
-    return redirect(f'/equipamento/ver_equipamento/{equipamento_id}')
+    #From table Emprestimo
+    emprestimo = Emprestimos.objects.filter(equipamentos = equipamento_id)
+    return redirect(f'/equipamento/ver_equipamento/{equipamento_id}',{'emprestimo':emprestimo})
 
 @login_required
 def editar_empresa(request):
@@ -197,3 +198,18 @@ def cadastrar_empresa(request):
     else:
         form = CadastroEmpresa()
     return render(request, 'cad_empresa.html', {'form':form})
+
+def devolver_equipamento(request):
+    equipamento_id = request.POST.get('equipamento_id')
+    emprestimos_id = request.POST.get('id')
+    emprestimos = get_object_or_404(Emprestimos, id = emprestimos_id)
+    emprestimo_defeito = request.POST.get('defeito')
+    emprestimo_diagnostico = request.POST.get('diagnostico')
+    emprestimo_tecnico = request.POST.get('tecnico_responsavel')
+    emprestimo_dt_devolucao = request.POST.get('data_devolucao')
+    emprestimos.defeito = emprestimo_defeito
+    emprestimos.diagnostico =  emprestimo_diagnostico
+    #emprestimos.tecnico_responsavel = emprestimo_tecnico
+    emprestimos.data_devolucao = emprestimo_dt_devolucao
+    emprestimos.save()
+    return redirect(f'/equipamento/ver_equipamento/{equipamento_id}',{'emprestimos':emprestimos})
